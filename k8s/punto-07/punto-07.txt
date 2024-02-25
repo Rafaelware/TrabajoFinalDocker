@@ -1,0 +1,37 @@
+Load Balancer:
+Deployments de LoadBalancer:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k apply -f ../../Clases4-6/service/loadBalancer/deployment.yaml
+deployment.apps/my-deployment-50001 created
+
+Creación del servicio nodePort:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k apply -f ../../Clases4-6/service/nodePort/svc-v1-np.yaml     
+service/my-np-service created
+
+Statefulset:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k apply -f ../../Clases4-6/rc-rs-deploy-sts/sts-mysql/sts-mysql.yaml
+statefulset.apps/mysql created
+
+Servicio Headless:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k apply -f ../../Clases4-6/rc-rs-deploy-sts/sts-mysql/svc-mysql.yaml
+service/mysql created
+service/mysql-read created
+
+Deployment con 4 réplicas:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k scale deploy my-deployment-50001 --replicas 4
+deployment.apps/my-deployment-50001 scaled
+
+
+Despliegue del servicio de LoadBalancer:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k apply -f ../../Clases4-6/service/loadBalancer/svc.yaml
+service/my-lb created
+
+Curl de prueba al loadBalancer:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# curl -i http://34.139.6.67/hello
+HTTP/1.1 200 OK
+Date: Fri, 23 Feb 2024 18:51:07 GMT
+Content-Length: 76
+Content-Type: text/plain; charset=utf-8
+Connection: close
+Hello, world!
+Version: 1.0.0
+Hostname: my-deployment-50001-5d8b7b7d96-sh6dc
