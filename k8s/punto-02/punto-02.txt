@@ -1,0 +1,5 @@
+gcloud init
+terraform init
+terraform plan --var-file values.tfvars
+terraform apply --var-file values.tfvars --auto-approve
+export KUBECONFIG=kubeconfig
