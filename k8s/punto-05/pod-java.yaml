@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rbac-java
+spec:
+  # serviceAccountName: acceso-api
+  containers:
+  - name: main
+    image: maven:3-openjdk-17-slim
+    command: ["sleep", "3600"]
+
+# java -cp target/k8s-project-1.0-SNAPSHOT.jar Example
