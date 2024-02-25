@@ -1,0 +1,1 @@
+kubectl apply -f ../../pods/3-pod-multicontainer-affinity-resources.yaml
