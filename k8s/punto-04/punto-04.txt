@@ -1,0 +1,20 @@
+Para hacer curl a un pod desde nginx:
+
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k get pods -o wide
+NAME                             READY   STATUS    RESTARTS   AGE   IP             NODE                                        NOMINATED NODE   READINESS GATES
+my-deployment-57d7bc4bb8-9d8s8   1/1     Running   0          14m   192.168.1.4    gke-mygke-cluster-system-c99513ad-s9r1      <none>           <none>
+my-deployment-57d7bc4bb8-j8vsf   1/1     Running   0          14m   192.168.3.12   gke-mygke-cluster-workloads-35b8eeb1-r10x   <none>           <none>
+my-deployment-57d7bc4bb8-mgrmt   1/1     Running   0          14m   192.168.2.4    gke-mygke-cluster-workloads-83606660-11nr   <none>           <none>
+my-deployment-57d7bc4bb8-r255k   1/1     Running   0          14m   192.168.2.5    gke-mygke-cluster-workloads-83606660-11nr   <none>           <none>
+my-deployment-57d7bc4bb8-w8t2x   1/1     Running   0          14m   192.168.0.5    gke-mygke-cluster-system-feb52b41-h0dq      <none>           <none>
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k -n name1 exec -it nginx bash
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+root@nginx:/# curl -i http://192.168.0.5:8080/hello
+HTTP/1.1 200 OK
+Date: Thu, 22 Feb 2024 21:42:01 GMT
+Content-Length: 70
+Content-Type: text/plain; charset=utf-8
+
+Hello, world!
+Version: 2.0.0
+Hostname: my-deployment-57d7bc4bb8-w8t2x
