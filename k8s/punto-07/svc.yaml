@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+spec:
+  type: LoadBalancer
+  selector:
+    app: products
+    department: sales
+    # app: api-persona #products
+    # version: v1
+    # department: sales
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 50001
+    name: listener-1
+    # name: http-appmetrics# <protocol>[-<suffix>].
+    # appProtocol: http # <protocol>
+  # - protocol: TCP
+  #   port: 80
+  #   targetPort: 50001
+  #   name: listener-2
+
+# browser -> load-balancer-address:60000
