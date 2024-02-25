@@ -1,0 +1,2 @@
+docker buildx build --platform linux/amd64  -t dafernande/ubuntu-test:v1 .
+docker buildx build --platform linux/amd64  -t dafernande/ubuntu-test:v1 --push .
