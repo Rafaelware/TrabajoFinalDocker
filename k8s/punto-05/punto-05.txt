@@ -1,0 +1,44 @@
+Creación del namespace name1:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k create ns name1
+Creación del pod en el namesapece name1:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k run nginx --image nginx -n name1
+Creación pod en namspace default:
+root@DESKTOP-EJASBPR:/workspace/Clases4-6/rbac-sa/java-app# alias k=kubectl
+root@DESKTOP-EJASBPR:/workspace/Clases4-6/rbac-sa/java-app# k apply -f pod-java.yaml
+
+root@DESKTOP-EJASBPR:/workspace# k cp Clases4-6/rbac-sa/java-app/pom.xml rbac-java:/home
+root@DESKTOP-EJASBPR:/workspace# k cp Clases4-6/rbac-sa/java-app/src/ rbac-java:/home
+root@DESKTOP-EJASBPR:/workspace# k cp Clases4-6/rbac-sa/java-app/src/ rbac-java:/home
+root@DESKTOP-EJASBPR:/workspace# k exec -it rbac-java bash
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+
+Se crea el service account:
+root@DESKTOP-EJASBPR:/workspace# k create -f Clases4-6/rbac-sa/java-app/service-account.yaml
+serviceaccount/acceso-api created
+
+Se elimina el pod rbac-java para crearlo nuevamente utilizando el serviceaccount:
+root@DESKTOP-EJASBPR:/workspace# k delete pod rbac-java
+pod "rbac-java" deleted
+
+Se crea clusterrole:
+root@DESKTOP-EJASBPR:/workspace# k create -f Clases4-6/rbac-sa/java-app/clusterrole-demo.yaml
+clusterrole.rbac.authorization.k8s.io/api-role created
+
+Se crea cluster-rolebinding:
+root@DESKTOP-EJASBPR:/workspace# k create -f Clases4-6/rbac-sa/java-app/cluster-rolebinding-sa-demo.yaml
+clusterrolebinding.rbac.authorization.k8s.io/global-cluster-rolebinding created
+
+Se crea nuevamente el pod java:
+root@DESKTOP-EJASBPR:/workspace# k create -f Clases4-6/rbac-sa/java-app/pod-java.yaml                   
+pod/rbac-java created
+root@DESKTOP-EJASBPR:/workspace# k cp Clases4-6/rbac-sa/java-app/src/ rbac-java:/home
+root@DESKTOP-EJASBPR:/workspace# k cp Clases4-6/rbac-sa/java-app/pom.xml rbac-java:/home
+root@DESKTOP-EJASBPR:/workspace# k exec -it rbac-java bash
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+root@rbac-java:/# cd /home
+
+root@rbac-java:/home# mvn clean package
+
+Creación del Namespace name2:
+root@DESKTOP-EJASBPR:/workspace/k8s-clusters/gke# k create ns name2
+namespace/name2 created
